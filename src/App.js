@@ -1,10 +1,10 @@
-import './App.css';
+import './assets/App.css';
 import WeatherPanel from './components/WeatherPanel';
 import NavBar from './components/NavBar';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <NavBar />
       <WeatherPanel></WeatherPanel>
     </div>

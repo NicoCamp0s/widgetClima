@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import Form from './Form';
+import Card from './Card';
 
 const WeatherPanel = () => {
   const [weather, setWeather] = useState([]);
@@ -11,8 +12,9 @@ const WeatherPanel = () => {
   // URL base para la API de clima
   const baseWeatherUrl = "https://api.openweathermap.org/data/2.5/weather";
   const baseForecastUrl = "https://api.openweathermap.org/data/2.5/forecast";
-  const apiKey = "0b31641f40706d2a4f2b58a732f083df";
   const language = "es";
+  const apiKey = "0b31641f40706d2a4f2b58a732f083df";
+  console.log(apiKey);
 
   //funcion que realiza la llamada a la api
   const getLocation = async(location) => {
@@ -28,14 +30,14 @@ const WeatherPanel = () => {
       if(!weatherResponse.ok) throw new Error(`Error fetching weather data: ${weatherResponse.statusText}`);
       const weatherData = await weatherResponse.json();
       setWeather(weatherData);
-      console.log(weatherData);
+      //console.log(weatherData);
 
       // Obtener datos de la previsión
       const forecastResponse  = await fetch(forecastUrl);
       if (!forecastResponse.ok) throw new Error(`Error fetching forecast data: ${forecastResponse.statusText}`);
       const forecastData = await forecastResponse.json();
       setForecast(forecastData);
-      console.log(forecastData);
+      //console.log(forecastData);
       
        // Mostrar tarjeta con datos
       setShow(true);
@@ -49,9 +51,17 @@ const WeatherPanel = () => {
   }
 
   return (
-    <React.Fragment>
-      <Form newLocation = {getLocation}/>
-    </React.Fragment>
+    <>
+      <Form 
+        newLocation = {getLocation}
+      />
+      <Card 
+        showData = {show} 
+        loadingData = {loading} 
+        weather = {weather} 
+        forecast = {forecast}
+      />
+    </>
   )
 }
 
